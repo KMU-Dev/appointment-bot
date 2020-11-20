@@ -1,0 +1,5 @@
+pipeline {
+    options {
+        disableConcurrentBuilds()
+    }
+}
