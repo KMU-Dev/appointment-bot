@@ -66,9 +66,9 @@ pipeline {
                 stage('Build release image') {
                     when {
                         anyOf {
-                            branch 'master';
-                            branch 'development';
-                            buildingTag();
+                            branch 'master'
+                            branch 'development'
+                            buildingTag()
                         }
                     }
                     steps {
