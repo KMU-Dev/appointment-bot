@@ -19,7 +19,7 @@ profiles:
         path: /build/tagPolicy
         value:
           envTemplate:
-            template: "{{.IMAGE_NAME}}:dirty-{{.GIT_COMMIT}}"
+            template: "dirty-{{.GIT_COMMIT}}"
   - name: ci:release
     patches:
       - op: add
@@ -31,4 +31,4 @@ profiles:
         path: /build/tagPolicy
         value:
           envTemplate:
-            template: "{{.IMAGE_NAME}}:{{.TAG_NAME}}"
+            template: "{{.TAG_NAME}}"
