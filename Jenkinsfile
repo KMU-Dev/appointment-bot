@@ -30,6 +30,9 @@ pipeline {
                         sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
                         sh 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
                         sh 'apt update && apt install docker-ce docker-ce-cli containerd.io -y'
+
+                        // install skaffold
+                        sh 'curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && install skaffold /usr/local/bin/'
                     }
                 }
                 stage('Configure Docker') {
@@ -41,6 +44,18 @@ pipeline {
                     steps {
                         sh "docker login -u '${env.REGISTRY_USERNAME}' -p '${env.REGISTRY_PASSWORD}' registry.webzyno.com"
                         sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
+                    }
+                }
+            }
+        }
+        stage('Build') {
+            environment {
+                GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
+            }
+            stages {
+                stage('Build Docker Image') {
+                    steps {
+                        sh 'skaffold build -p ci --file-output=tags.json'
                     }
                 }
             }
