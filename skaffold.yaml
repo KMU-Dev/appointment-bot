@@ -20,9 +20,6 @@ profiles:
         value:
           envTemplate:
             template: "{{.IMAGE_NAME}}:dirty-{{.GIT_COMMIT}}"
-      - op: add
-        path: /build/artifacts/0/jib/args
-        value: [-Djib.container.creationTime=USE_CURRENT_TIMESTAMP]
   - name: ci:release
     patches:
       - op: add
@@ -35,6 +32,3 @@ profiles:
         value:
           envTemplate:
             template: "{{.IMAGE_NAME}}:{{.TAG_NAME}}"
-      - op: add
-        path: /build/artifacts/0/jib/args
-        value: [-Djib.container.creationTime=USE_CURRENT_TIMESTAMP]
