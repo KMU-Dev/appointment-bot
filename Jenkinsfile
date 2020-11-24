@@ -9,6 +9,11 @@ pipeline {
             defaultContainer 'ubuntu'
         }
     }
+    environment {
+        // TAGS
+        APP_TAG = 'registry.webzyno.com/appointment-bot/app'
+        TAG_NAME = getTagName(env.BRANCH_NAME)
+    }
     stages {
         stage('Pre-Build') {
             stages {
@@ -49,16 +54,34 @@ pipeline {
             }
         }
         stage('Build') {
-            environment {
-                GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
-            }
             stages {
-                stage('Build Docker Image') {
+                stage('Build staging image') {
+                    environment {
+                        GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
+                    }
                     steps {
                         sh 'skaffold build -p ci --file-output=tags.json'
+                    }
+                }
+                stage('Build release image') {
+                    when {
+                        anyOf {
+                            branch 'master';
+                            branch 'development';
+                            buildingTag();
+                        }
+                    }
+                    steps {
+                        sh 'skaffold build -p ci:release --file-output=tags.json'
                     }
                 }
             }
         }
     }
+}
+
+def getTagName(branchName) {
+    if (branchName == "master") return "latest";
+    else if (branchName == "development") return "nightly";
+    else return branchName.substring(1);
 }
