@@ -70,18 +70,13 @@ pipeline {
             steps {
                 // Run pylint
                 sh 'mkdir reports'
-                script {
-                    try {
-                        sh 'pylint bot > reports/pylint.report'
-                    } catch (err) {
-                        echo err.getMessage()
-                    }
-                }
+                sh 'pylint bot -f parseable --exit-zero  > reports/pylint.report'
             }
             post {
                 always {
                     recordIssues(
                         tool: pyLint(pattern: 'reports/pylint.report'),
+                        enabledForFailure: true,
                         unstableTotalAll: 1,
                     )
                 }
