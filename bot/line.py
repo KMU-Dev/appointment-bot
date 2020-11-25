@@ -1,9 +1,6 @@
-import functools
-
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, sessions, url_for, jsonify
+    Blueprint, request
 )
-from werkzeug.security import check_password_hash, generate_password_hash
 
 bp = Blueprint('webhook', __name__, url_prefix='/webhook')
 

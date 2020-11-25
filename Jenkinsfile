@@ -4,9 +4,8 @@ pipeline {
     }
     agent {
         kubernetes {
-            label 'appointment-bot-build'
             yamlFile 'ci/build-pod.yaml'
-            defaultContainer 'ubuntu'
+            defaultContainer 'python'
         }
     }
     environment {
@@ -26,14 +25,11 @@ pipeline {
                         sh 'ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone'
 
                         sh 'apt update'
-
-                        // install Git
-                        sh 'apt install git -y'
                         
                         // install Docker
                         sh 'apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y'
-                        sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
-                        sh 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
+                        sh 'curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -'
+                        sh 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"'
                         sh 'apt update && apt install docker-ce docker-ce-cli containerd.io -y'
 
                         // install skaffold
@@ -51,6 +47,11 @@ pipeline {
                         sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
                     }
                 }
+                stage('Install required package') {
+                    steps {
+                        sh 'pip install -r requirements.txt'
+                    }
+                }
             }
         }
         stage('Build') {
@@ -63,12 +64,37 @@ pipeline {
                         sh 'skaffold build -p ci --file-output=tags.json'
                     }
                 }
-                stage('Build release image') {
+            }
+        }
+        stage('Analysis') {
+            steps {
+                // Run pylint
+                sh 'mkdir reports'
+                sh 'pylint bot -f parseable --exit-zero > reports/pylint.report'
+            }
+            post {
+                always {
+                    recordIssues(
+                        tool: pyLint(pattern: 'reports/pylint.report'),
+                        enabledForFailure: true,
+                        unstableTotalAll: 1,
+                    )
+                }
+            }
+        }
+        stage('Deploy') {
+            stages {
+                stage('Build and deploy release image') {
                     when {
                         anyOf {
                             branch 'master';
                             branch 'development';
                         }
+                    }
+                    environment {
+                        DOCKER_CONTENT_TRUST = '1'
+                        DOCKER_CONTENT_TRUST_SERVER = 'https://notary.webzyno.com'
+                        DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE = credentials('appointment-bot-jenkins-delegation-key-passphrase')
                     }
                     steps {
                         sh 'skaffold build -p ci:release --file-output=tags.json'
