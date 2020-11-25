@@ -22,11 +22,11 @@ profiles:
             template: "dirty-{{.GIT_COMMIT}}"
   - name: ci:release
     patches:
-      - op: add
-        path: /build/local
-        value:
-          push:
-            false
+#      - op: add
+#        path: /build/local
+#        value:
+#          push:
+#            false
       - op: add
         path: /build/tagPolicy
         value:

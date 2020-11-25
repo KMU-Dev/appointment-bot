@@ -63,12 +63,21 @@ pipeline {
                         sh 'skaffold build -p ci --file-output=tags.json'
                     }
                 }
-                stage('Build release image') {
+            }
+        }
+        stage('Deploy') {
+            stages {
+                stage('Build and deploy release image') {
                     when {
                         anyOf {
                             branch 'master';
                             branch 'development';
                         }
+                    }
+                    environment {
+                        DOCKER_CONTENT_TRUST = '1'
+                        DOCKER_CONTENT_TRUST_SERVER = 'https://notary.webzyno.com'
+                        DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE = credentials('appointment-bot-jenkins-delegation-key-passphrase')
                     }
                     steps {
                         sh 'skaffold build -p ci:release --file-output=tags.json'
