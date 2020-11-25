@@ -70,10 +70,12 @@ pipeline {
             steps {
                 // Run pylint
                 sh 'mkdir reports'
-                try {
-                    sh 'pylint bot > reports/pylint.report'
-                } catch (err) {
-                    echo err.getMessage()
+                script {
+                    try {
+                        sh 'pylint bot > reports/pylint.report'
+                    } catch (err) {
+                        echo err.getMessage()
+                    }
                 }
             }
             post {
