@@ -65,6 +65,20 @@ pipeline {
                 }
             }
         }
+        stage('Analysis') {
+            steps {
+                // Run pylint
+                sh 'pylint bot > reports/pylint.report'
+            }
+            post {
+                always {
+                    recordIssues(
+                        tool: pyLint(pattern: 'reports/pylint.report'),
+                        unstableTotalAll: 1,
+                    )
+                }
+            }
+        }
         stage('Deploy') {
             stages {
                 stage('Build and deploy release image') {
