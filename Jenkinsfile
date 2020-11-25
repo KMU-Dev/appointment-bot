@@ -4,7 +4,6 @@ pipeline {
     }
     agent {
         kubernetes {
-            // label 'appointment-bot-build'
             yamlFile 'ci/build-pod.yaml'
             defaultContainer 'python'
         }
@@ -26,9 +25,6 @@ pipeline {
                         sh 'ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone'
 
                         sh 'apt update'
-
-                        // install Git
-                        sh 'apt install git -y'
                         
                         // install Docker
                         sh 'apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y'
@@ -73,6 +69,7 @@ pipeline {
         stage('Analysis') {
             steps {
                 // Run pylint
+                sh 'mkdir reports'
                 sh 'pylint bot > reports/pylint.report'
             }
             post {
