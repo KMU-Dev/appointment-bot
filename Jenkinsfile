@@ -4,7 +4,7 @@ pipeline {
     }
     agent {
         kubernetes {
-            label 'appointment-bot-build'
+            // label 'appointment-bot-build'
             yamlFile 'ci/build-pod.yaml'
             defaultContainer 'python'
         }
