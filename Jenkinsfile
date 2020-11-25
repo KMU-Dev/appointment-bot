@@ -70,7 +70,7 @@ pipeline {
             steps {
                 // Run pylint
                 sh 'mkdir reports'
-                sh 'pylint bot -f parseable --exit-zero  > reports/pylint.report'
+                sh 'pylint bot -f parseable --exit-zero > reports/pylint.report'
             }
             post {
                 always {
