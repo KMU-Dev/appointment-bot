@@ -22,17 +22,13 @@ profiles:
             template: "dirty-{{.GIT_COMMIT}}"
   - name: ci:release
     patches:
-#      - op: add
-#        path: /build/local
-#        value:
-#          push:
-#            false
+      - op: add
+        path: /build/local
+        value:
+          push:
+            false
       - op: add
         path: /build/tagPolicy
         value:
           envTemplate:
             template: "{{.TAG_NAME}}"
-      - op: add
-        path: /build/local
-        value:
-          useDockerCLI: true

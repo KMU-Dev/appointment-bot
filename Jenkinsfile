@@ -97,7 +97,8 @@ pipeline {
                         DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE = credentials('appointment-bot-jenkins-delegation-key-passphrase')
                     }
                     steps {
-                        sh 'skaffold build -p ci:release --file-output=tags.json'
+                        sh 'skaffold build -p ci:release'
+                        sh 'docker push $APP_TAG:$TAG_NAME'
                     }
                 }
             }
