@@ -2,8 +2,6 @@ import os
 
 from flask import Flask
 
-from . import line
-
 
 def create_app(test_config=None):
     # Create and configure the app
@@ -25,6 +23,7 @@ def create_app(test_config=None):
         pass
 
     # Add blueprints
+    from . import line
     app.register_blueprint(line.bp)
 
     return app
