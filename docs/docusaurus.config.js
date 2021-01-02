@@ -75,6 +75,12 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} 掛號對不對. Built with Docusaurus.`,
     },
+    prism: {
+      theme: require('prism-react-renderer/themes/github'),
+      darkTheme: require('prism-react-renderer/themes/dracula'),
+      additionalLanguages: ['powershell'],
+      defaultLanguage: 'python',
+    },
   },
   presets: [
     [
