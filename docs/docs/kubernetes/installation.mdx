@@ -8,23 +8,36 @@ import TabItem from '@theme/TabItem';
 
 安裝 Kubernetes是一個浩大工程，請根據您的作業系統依照指示安裝 Kubernetes。
 
-## 安裝 Docker
+## 安裝 Ubuntu
+
+Kubernetes 是一個容器管理工具，因此我們必須先安裝容器系統，然而 **Windows 10 家用版** 並不支援容器系統，
+好在 Windows 最近推出了 **WSL 2**，讓我們能在 Windows 中執行 Linux 子系統，
+現在就讓我們來安裝 Linux 中最廣為人知的 Ubuntu 系統吧！
+
+:::info
+如果您的電腦為以下作業系統：
+
+* Windows 10 **專業版**、**企業版**或**教育版**
+* macOS
+
+恭喜你，不需要安裝 Linux 系統即可執行 Docker，請直接跳到 [安裝 Docker](#安裝-docker)。
+:::
 
 <Tabs
     defaultValue="windows"
     values={[
         {label: 'Windows', value: 'windows'},
-        {label: 'macOS', value: 'macos'},
     ]}
 >
 <TabItem value="windows">
 
-:::info 必要需求
+:::caution 必要需求
 
 * CPU 是 x64 架構
 * Windows 10 作業系統，**版本 1903** 或更高，含**組件 18362** 或更高組件
 
 :::
+
 
 ### 啟用 Windows 子系統 Linux 版
 
@@ -36,13 +49,52 @@ import TabItem from '@theme/TabItem';
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 ```
 
+
+### 啟用虛擬機器功能
+
+在安裝 WSL 2 之前，您必須啟用 **虛擬機器平台** 選用功能。
+
+以系統管理員身分開啟 PowerShell 並執行：
+
+```powershell title="PowerShell"
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+**重新啟動** 您的電腦，以完成 WSL 安裝並更新至 WSL 2。
+
+
+### 下載 Linux 核心更新套件
+
+下載 [WSL2 Linux 核心更新套件 (適用於 x64 電腦)](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+並執行更新套件。 \(按兩下以執行 - 系統會提示您提供更高的權限，請選取 [是] 以核准此安裝作業。\)
+
+
+### 將 WSL 2 設定為預設版本
+
+在安裝新的 Linux 發行版本時，開啟 PowerShell，然後執行下列命令，以將 WSL 2 設定為預設版本：
+
+```powershell title="PowerShell"
+wsl --set-default-version 2
+```
+
+
+### 安裝 Ubuntu 20.04.01
+
+1. 開啟 Microsoft Store 中，Ubuntu 的 [應用程式畫面](https://www.microsoft.com/store/productId/9NBLGGH4MSV6)。
+
+2. 從 Ubuntu 的安裝頁面中，選取 [取得]。
+    ![Microsoft Store Ubuntu](https://docs.microsoft.com/zh-tw/windows/wsl/media/ubuntustore.png)
+
+當您第一次啟動新安裝的 Linux 發行版本時，主控台視窗會隨即開啟，而系統會要求您等候一到兩分鐘，讓檔案解壓縮並儲存在您的電腦上。
+未來的所有啟動時間都應該會低於一秒。
+
+接著，您必須為新的 Linux 發行版本設定使用者帳戶和密碼。
+![Ubuntu 啟動畫面](https://docs.microsoft.com/zh-tw/windows/wsl/media/ubuntuinstall.png)
+
+**恭喜！您已成功安裝並設定與 Windows 作業系統完全整合的 Ubuntu 系統！**
+
 </TabItem>
-<TabItem value="macos"></TabItem>
 </Tabs>
 
 
-
-
-
-
-
+## 安裝 Docker
