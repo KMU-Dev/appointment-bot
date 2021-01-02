@@ -37,12 +37,8 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Kubernetes',
+              to: 'docs/kubernetes/overview',
             },
           ],
         },
@@ -77,7 +73,13 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Appointment Bot. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} 掛號對不對. Built with Docusaurus.`,
+    },
+    prism: {
+      theme: require('prism-react-renderer/themes/github'),
+      darkTheme: require('prism-react-renderer/themes/dracula'),
+      additionalLanguages: ['powershell'],
+      defaultLanguage: 'python',
     },
   },
   presets: [

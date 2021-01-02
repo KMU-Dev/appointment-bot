@@ -1,7 +1,8 @@
 module.exports = {
-  someSidebar: {
-    Kubernetes: ['kubernetes/overview', 'kubernetes/installation'],
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+  mainSidebar: {
+    "介紹": ['changelog'],
+    Kubernetes: ['kubernetes/overview', 'kubernetes/installation', 'kubernetes/tools'],
+    /* Docusaurus: ['doc1', 'doc2', 'doc3'],
+    Features: ['mdx'], */
   },
 };
