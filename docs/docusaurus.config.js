@@ -1,18 +1,18 @@
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  title: '掛號對不對',
+  tagline: '掛號對不對利用 LINE Bot 給予使用者最精準的掛號資訊',
+  url: 'https://docs.appointment.kmu.webzyno.com/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'ZhaoTzuHsien', // Usually your GitHub org/user name.
+  projectName: 'appointment-bot', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: '掛號對不對',
       logo: {
-        alt: 'My Site Logo',
+        alt: '掛號對不對',
         src: 'img/logo.svg',
       },
       items: [
@@ -24,7 +24,7 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/ZhaoTzuHsien/appointment-bot',
           label: 'GitHub',
           position: 'right',
         },
@@ -72,12 +72,12 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/ZhaoTzuHsien/appointment-bot',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Appointment Bot. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -88,13 +88,13 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/ZhaoTzuHsien/appointment-bot/edit/master/docs/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/ZhaoTzuHsien/appointment-bot/edit/master/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

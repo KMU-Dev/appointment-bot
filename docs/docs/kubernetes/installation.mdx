@@ -1,0 +1,48 @@
+---
+title: 安裝 Minikube
+sidebar_label: 安裝
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+安裝 Kubernetes是一個浩大工程，請根據您的作業系統依照指示安裝 Kubernetes。
+
+## 安裝 Docker
+
+<Tabs
+    defaultValue="windows"
+    values={[
+        {label: 'Windows', value: 'windows'},
+        {label: 'macOS', value: 'macos'},
+    ]}
+>
+<TabItem value="windows">
+
+:::info 必要需求
+
+* CPU 是 x64 架構
+* Windows 10 作業系統，**版本 1903** 或更高，含**組件 18362** 或更高組件
+
+:::
+
+### 啟用 Windows 子系統 Linux 版
+
+您必須先啟用「Windows 子系統 Linux 版」選用功能，然後才能在 Windows 上安裝任何 Linux 發行版本。
+
+以系統管理員身分開啟 PowerShell 並執行：
+
+```powershell title="PowerShell"
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+
+</TabItem>
+<TabItem value="macos"></TabItem>
+</Tabs>
+
+
+
+
+
+
+
