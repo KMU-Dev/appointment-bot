@@ -6,7 +6,8 @@
     "dev": "bottender dev",
     "lint": "eslint . ",
     "start": "bottender start",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "dependencies": {
     "bottender": "1.5.1-alpha.8"
