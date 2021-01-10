@@ -47,11 +47,11 @@ pipeline {
                         sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
                     }
                 }
-                stage('Install required package') {
+                /* stage('Install required package') {
                     steps {
                         sh 'pip install -r requirements.txt'
                     }
-                }
+                } */
             }
         }
         stage('Build') {
@@ -70,12 +70,12 @@ pipeline {
             steps {
                 // Run pylint
                 sh 'mkdir reports'
-                sh 'pylint bot -f parseable --exit-zero > reports/pylint.report'
+                sh 'yarn lint -o eslint.report -f checkstyle'
             }
             post {
                 always {
                     recordIssues(
-                        tool: pyLint(pattern: 'reports/pylint.report'),
+                        tool: checkStyle(pattern: 'reports/eslint.report'),
                         enabledForFailure: true,
                         unstableTotalAll: 1,
                     )
