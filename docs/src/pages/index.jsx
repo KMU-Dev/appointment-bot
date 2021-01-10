@@ -12,7 +12,7 @@ const features = [
     imageUrl: 'img/undraw_docusaurus_mountain.svg',
     description: (
       <>
-        掛號對不隊從無到有將最高品質的 Line Bot 呈現於大家的面前，使用者僅須向機器人提問，它絕對能提供令人滿意的答案。
+        掛號對不隊從無到有將最高品質的 Line Bot 呈現於大家面前，使用者僅須向機器人提問，它絕對能提供令人滿意的答案。
       </>
     ),
   },
@@ -21,7 +21,7 @@ const features = [
     imageUrl: 'img/undraw_docusaurus_tree.svg',
     description: (
       <>
-        健康是一切的根本，我們非常重視您提供的症狀資料和隱私，在提供精準的判斷之餘，我們竭盡全力保護您的亙人資料。
+        健康是一切的根本，我們非常重視您提供的症狀資料和隱私，在提供精準的判斷之餘，我們竭盡全力保護您的個人資料。
       </>
     ),
   },
