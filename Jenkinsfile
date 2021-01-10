@@ -34,6 +34,11 @@ pipeline {
 
                         // install skaffold
                         sh 'curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && install skaffold /usr/local/bin/'
+
+                        // install yarn
+                        sh 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -'
+                        sh 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list'
+                        sh 'apt update && apt install yarn -y'
                     }
                 }
                 stage('Configure Docker') {
@@ -49,7 +54,7 @@ pipeline {
                 }
                 stage('Install required package') {
                     steps {
-                        sh 'pip install -r requirements.txt'
+                        sh 'yarn --version && yarn'
                     }
                 }
             }
@@ -68,14 +73,14 @@ pipeline {
         }
         stage('Analysis') {
             steps {
-                // Run pylint
+                // Run yarn lint
                 sh 'mkdir reports'
-                sh 'pylint bot -f parseable --exit-zero > reports/pylint.report'
+                sh 'yarn lint -o reports/eslint.report -f checkstyle'
             }
             post {
                 always {
                     recordIssues(
-                        tool: pyLint(pattern: 'reports/pylint.report'),
+                        tool: checkStyle(pattern: 'reports/eslint.report'),
                         enabledForFailure: true,
                         unstableTotalAll: 1,
                     )

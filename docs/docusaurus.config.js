@@ -91,6 +91,8 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/ZhaoTzuHsien/appointment-bot/edit/master/docs/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         blog: {
           showReadingTime: true,
