@@ -37,6 +37,14 @@ module.exports = {
           title: 'Docs',
           items: [
             {
+              label: 'Introduction',
+              to: 'docs',
+            },
+            {
+              label: 'Node.js',
+              to: 'docs/nodejs/overview',
+            },
+            {
               label: 'Kubernetes',
               to: 'docs/kubernetes/overview',
             },
