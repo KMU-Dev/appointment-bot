@@ -47,11 +47,11 @@ pipeline {
                         sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
                     }
                 }
-                /* stage('Install required package') {
+                stage('Install required package') {
                     steps {
-                        sh 'pip install -r requirements.txt'
+                        sh 'yarn --version && yarn'
                     }
-                } */
+                }
             }
         }
         stage('Build') {
@@ -68,7 +68,7 @@ pipeline {
         }
         stage('Analysis') {
             steps {
-                // Run pylint
+                // Run yarn lint
                 sh 'mkdir reports'
                 sh 'yarn lint -o eslint.report -f checkstyle'
             }
