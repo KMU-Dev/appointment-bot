@@ -75,7 +75,7 @@ pipeline {
             steps {
                 // Run yarn lint
                 sh 'mkdir reports'
-                sh 'yarn lint -o eslint.report -f checkstyle'
+                sh 'yarn lint -o reports/eslint.report -f checkstyle'
             }
             post {
                 always {
