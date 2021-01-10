@@ -8,32 +8,29 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
+    title: '簡單易用',
     imageUrl: 'img/undraw_docusaurus_mountain.svg',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        掛號對不隊從無到有將最高品質的 Line Bot 呈現於大家的面前，使用者僅須向機器人提問，它絕對能提供令人滿意的答案。
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: '專注於重要的事',
     imageUrl: 'img/undraw_docusaurus_tree.svg',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        健康是一切的根本，我們非常重視您提供的症狀資料和隱私，在提供精準的判斷之餘，我們竭盡全力保護您的亙人資料。
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: '注入 AI 能量',
     imageUrl: 'img/undraw_docusaurus_react.svg',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        您說的每一句話潛藏著藝術，我們的 AI 系統會抽絲剝繭，一步步了解每個語句，彷彿閨密一般，懂得您真正的心意。
       </>
     ),
   },
