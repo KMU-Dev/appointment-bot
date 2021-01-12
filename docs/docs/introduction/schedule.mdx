@@ -1,0 +1,95 @@
+---
+title: 工作進度
+sidebar_label: 進度
+---
+
+import { Chart } from 'react-google-charts';
+
+
+這是我們短期的工作進度表，還煩請大家能夠清楚自己的工作內容並準時完成，如果有問題都可以隨時提問。
+
+
+## 工作說明
+
+我們的掛號對不隊將專案劃分成三個部分，分別由不同團隊指掌，以下簡要概述工作內容：
+
+1. **Line Bot 組**：負責開發 Line Bot 伺服器，建構自然語言解析系統，將使用者訊息分類並交付業務邏輯處理。
+    組員：**林子唐**、**趙子賢**
+2. **Infermedica 組**：負責串接 Infermedica API，把 Line Bot 分類過的症狀資訊提供給 Infermedica API，得到相應的疾病資訊。
+    組員：**吳宥緯**、**王晟彰**
+3. **醫療機構組**：負責整理醫療院所資料，並依據使用者位置和疾病推算合適的醫療機構。
+    組員：**劉芳瑜**、**林威良**
+
+
+## 工作進度表
+
+<div style={{overflowX: 'scroll'}}>
+<Chart
+    width={'1080px'}
+    height={'250px'}
+    chartType="Gantt"
+    loader={<div>Loading Chart</div>}
+    data={[
+        [
+            { type: 'string', label: 'Task ID' },
+            { type: 'string', label: 'Task Name' },
+            { type: 'string', label: 'Resource' },
+            { type: 'date', label: 'Start Date' },
+            { type: 'date', label: 'End Date' },
+            { type: 'number', label: 'Duration' },
+            { type: 'number', label: 'Percent Complete' },
+            { type: 'string', label: 'Dependencies' },
+        ],
+        [
+            'Learn',
+            '學習',
+            '全體',
+            new Date(2021, 0, 11),
+            new Date(2021, 0, 26),
+            null,
+            0,
+            null,
+        ],
+        [
+            'Gather information',
+            '蒐集醫院資料',
+            '醫療機構組',
+            new Date(2021, 0, 11),
+            new Date(2021, 0, 31),
+            null,
+            30,
+            null,
+        ],
+        [
+            'Line Bot',
+            '開發 Line Bot',
+            'Line Bot 組',
+            new Date(2021, 0, 27),
+            new Date(2021, 1, 13),
+            null,
+            0,
+            'Learn',
+        ],
+        [
+            'Infermedica',
+            '串接 Infermedica API',
+            'Infermedica 組',
+            new Date(2021, 0, 27),
+            new Date(2021, 1, 6),
+            null,
+            0,
+            'Learn',
+        ],
+        [
+            'Hospital recommendation',
+            '掛號推薦',
+            '醫療機構組',
+            new Date(2021, 1, 1),
+            new Date(2021, 1, 13),
+            null,
+            0,
+            'Learn,Gather information',
+        ],
+    ]}
+/>
+</div>

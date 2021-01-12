@@ -1,6 +1,6 @@
 module.exports = {
     mainSidebar: {
-        介紹: ['introduction', 'changelog'],
+        介紹: ['introduction/welcome', 'introduction/schedule', 'introduction/changelog'],
         'Node.js': ['nodejs/overview', 'nodejs/installation', 'nodejs/tools'],
         Kubernetes: ['kubernetes/overview', 'kubernetes/installation', 'kubernetes/tools'],
         附錄: ['appendix/chocolatey'],

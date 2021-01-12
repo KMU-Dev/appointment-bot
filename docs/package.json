@@ -18,7 +18,8 @@
     "clsx": "^1.1.1",
     "node-fetch": "^2.6.1",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-google-charts": "^3.0.15"
   },
   "browserslist": {
     "production": [
