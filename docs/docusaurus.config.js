@@ -1,6 +1,6 @@
 module.exports = {
-  title: '掛號對不對',
-  tagline: '掛號對不對利用 LINE Bot 給予使用者最精準的掛號資訊',
+  title: '掛號對不隊',
+  tagline: '掛號對不隊利用 LINE Bot 給予使用者最精準的掛號資訊',
   url: 'https://docs.appointment.kmu.webzyno.com/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -10,9 +10,9 @@ module.exports = {
   projectName: 'appointment-bot', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: '掛號對不對',
+      title: '掛號對不隊',
       logo: {
-        alt: '掛號對不對',
+        alt: '掛號對不隊',
         src: 'img/logo.svg',
       },
       items: [
@@ -22,7 +22,7 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        // {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/ZhaoTzuHsien/appointment-bot',
           label: 'GitHub',
@@ -36,6 +36,14 @@ module.exports = {
         {
           title: 'Docs',
           items: [
+            {
+              label: 'Introduction',
+              to: 'docs',
+            },
+            {
+              label: 'Node.js',
+              to: 'docs/nodejs/overview',
+            },
             {
               label: 'Kubernetes',
               to: 'docs/kubernetes/overview',
@@ -73,7 +81,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} 掛號對不對. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} 掛號對不隊. Built with Docusaurus.`,
     },
     prism: {
       theme: require('prism-react-renderer/themes/github'),

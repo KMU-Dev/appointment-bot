@@ -14,11 +14,15 @@
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.70",
     "@docusaurus/preset-classic": "2.0.0-alpha.70",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "node-fetch": "^2.6.1",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-google-charts": "^3.0.15"
   },
   "browserslist": {
     "production": [
