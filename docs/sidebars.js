@@ -1,6 +1,6 @@
 module.exports = {
     mainSidebar: {
-        介紹: ['introduction/welcome', 'introduction/schedule', 'introduction/catalogue', 'introduction/changelog'],
+        介紹: ['introduction/welcome', 'introduction/schedule', 'introduction/catalogue', 'introduction/homework', 'introduction/changelog'],
         'Node.js': ['nodejs/overview', 'nodejs/installation', 'nodejs/tools'],
         'TypeScript': ['typescript/overview', 'typescript/first-project', 'typescript/variable-and-comment'],
         Kubernetes: ['kubernetes/overview', 'kubernetes/installation', 'kubernetes/tools'],
