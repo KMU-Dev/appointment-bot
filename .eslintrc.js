@@ -1,14 +1,14 @@
 module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2020,
+        tsconfigRootDir: __dirname,
+        project: ['./tsconfig.json'],
     },
     extends: [
         'eslint:recommended',
-        'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
         'prettier',
-        'prettier/@typescript-eslint',
     ],
     env: {
         node: true,
