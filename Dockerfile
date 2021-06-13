@@ -1,5 +1,5 @@
 # Build Container
-FROM node:14.15.4-alpine AS builder
+FROM node:14.17-alpine AS builder
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ RUN yarn build
 
 
 # Production Container
-FROM node:14.15.4-alpine
+FROM node:14.17-alpine
 
 LABEL maintainer="Chao Tzu-Hsien"
 
