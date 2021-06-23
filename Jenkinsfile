@@ -18,9 +18,6 @@ pipeline {
         stage('Pre-Build') {
             stages {
                 stage('Install necessary package') {
-                    environment {
-                        
-                    }
                     steps {
                         // configure tzdata
                         sh 'ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone'
