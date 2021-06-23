@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { configuration } from './config/configuration';
 import { LineModule } from './line/line.module';
+import { DynamicProvider } from './module-utils/dynamic-provider';
 
 @Module({
     imports: [
@@ -14,8 +15,16 @@ import { LineModule } from './line/line.module';
             load: [configuration],
         }),
         LineModule.forRoot({
-            channelAccessTokenKey: 'channels.line.accessToken',
-            channelSecretKey: 'channels.line.channelSecret',
+            channelAccessToken: new DynamicProvider(
+                (configService: ConfigService) =>
+                    configService.get<string>('channels.line.accessToken'),
+                ConfigService,
+            ),
+            channelSecret: new DynamicProvider(
+                (configService: ConfigService) =>
+                    configService.get<string>('channels.line.channelSecret'),
+                ConfigService,
+            ),
         }),
     ],
     controllers: [AppController],

@@ -6,8 +6,9 @@ import {
     MiddlewareConsumer,
     Module,
     NestModule,
+    Provider,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ModuleUtils } from 'src/module-utils/module-utils';
 import { LineModuleOptions } from './line-module-options.interface';
 import { LineController } from './line.controller';
 
@@ -28,32 +29,22 @@ export class LineModule implements NestModule {
             module: LineModule,
             controllers,
             providers: [
-                {
-                    provide: 'LINE_MIDDLEWARE',
-                    useFactory: (configService: ConfigService) => {
-                        return middleware(
-                            this.getLineConfig(
-                                configService,
-                                options.channelAccessTokenKey,
-                                options.channelSecretKey,
-                            ),
-                        );
-                    },
-                    inject: [ConfigService],
-                },
-                {
-                    provide: 'LINE_CLIENT',
-                    useFactory: (configService: ConfigService) => {
-                        return new Client(
-                            this.getLineConfig(
-                                configService,
-                                options.channelAccessTokenKey,
-                                options.channelSecretKey,
-                            ),
-                        );
-                    },
-                    inject: [ConfigService],
-                },
+                ModuleUtils.resolveDynamicProvider(
+                    'LINE_CHANNEL_ACCESS_TOKEN',
+                    options.channelAccessToken,
+                ),
+                ModuleUtils.resolveDynamicProvider(
+                    'LINE_CHANNEL_SECRET',
+                    options.channelSecret,
+                ),
+                this.getLineMiddleware(
+                    'LINE_CHANNEL_ACCESS_TOKEN',
+                    'LINE_CHANNEL_SECRET',
+                ),
+                this.getLineClient(
+                    'LINE_CHANNEL_ACCESS_TOKEN',
+                    'LINE_CHANNEL_SECRET',
+                ),
             ],
         };
     }
@@ -62,16 +53,33 @@ export class LineModule implements NestModule {
         consumer.apply(this.middleware).forRoutes(LineController);
     }
 
-    private static getLineConfig(
-        configService: ConfigService,
-        channelAccessTokenKey: string,
+    private static getLineMiddleware(
+        accessTokenKey: string,
         channelSecretKey: string,
-    ) {
+    ): Provider {
         return {
-            channelAccessToken: configService.get<string>(
-                channelAccessTokenKey,
-            ),
-            channelSecret: configService.get<string>(channelSecretKey),
+            provide: 'LINE_MIDDLEWARE',
+            useFactory: (channelAccessToken: string, channelSecret: string) =>
+                middleware({
+                    channelAccessToken,
+                    channelSecret,
+                }),
+            inject: [accessTokenKey, channelSecretKey],
+        };
+    }
+
+    private static getLineClient(
+        accessTokenKey: string,
+        channelSecretKey: string,
+    ): Provider {
+        return {
+            provide: 'LINE_MIDDLEWARE',
+            useFactory: (channelAccessToken: string, channelSecret: string) =>
+                new Client({
+                    channelAccessToken,
+                    channelSecret,
+                }),
+            inject: [accessTokenKey, channelSecretKey],
         };
     }
 }
