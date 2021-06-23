@@ -42,11 +42,12 @@ pipeline {
                 stage('Configure Docker') {
                     environment {
                         REGISTRY_USERNAME = 'ZhaoTzuHsien'
-                        REGISTRY_PASSWORD = credentials('dcfe891d-d27f-4c73-b6cc-8e322efe13b3') // GitHub personal access token
+                        REGISTRY_PASSWORD = credentials('github-jenkins-pat') // GitHub personal access token
                         // JENKINS_DELEGATION_KEY = credentials('appointment-bot-jenkins-notary-delegation-private-key')
                     }
                     steps {
-                        sh "docker login -u '${env.REGISTRY_USERNAME}' -p '${env.REGISTRY_PASSWORD}' ghcr.io"
+                        sh 'echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USERNAME --password-stdin'
+                        // sh "docker login -u '${env.REGISTRY_USERNAME}' -p '${env.REGISTRY_PASSWORD}' ghcr.io"
                         // sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
                     }
                 }
