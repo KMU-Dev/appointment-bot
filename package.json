@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:cov:ci": "jest --coverage --ci --reporters=\"default\" --reporters=\"jest-junit\"",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest ",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:e2e:ci": "jest --config ./test/jest-e2e.json --ci --reporters=\"default\" --reporters=\"jest-junit\""
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
+    "app-root-path": "^3.0.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "js-yaml": "^4.1.0",
@@ -39,6 +40,7 @@
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.15",
+    "@types/app-root-path": "^1.2.4",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.22",
     "@types/js-yaml": "^4.0.1",
@@ -75,6 +77,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "reporters": [ "default", "jest-junit" ]
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
   }
 }

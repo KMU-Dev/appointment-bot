@@ -43,6 +43,15 @@ pipeline {
                         sh 'yarn --version && yarn'
                     }
                 }
+                stage('Configure CI environment') {
+                    environment {
+                        CONFIG = credentials('appointment-bot-config')
+                    }
+                    steps {
+                        sh 'mkdir -p config'
+                        sh 'cp $CONFIG config/config.yaml'
+                    }
+                }
             }
         }
         stage('Build') {
@@ -88,7 +97,7 @@ pipeline {
                 }
             }
             post {
-                success {
+                always {
                     junit '*junit.xml'
                 }
             }

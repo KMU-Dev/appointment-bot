@@ -1,18 +1,18 @@
 import { readFileSync } from 'fs';
-import { join } from 'path';
 import * as yaml from 'js-yaml';
+import { resolve } from 'app-root-path';
 import { plainToClass } from 'class-transformer';
 import { AppointmentBotConfig } from './appointment-bot.config';
 import { validate } from 'class-validator';
 import { InvalidConfigError } from './invalid-config.error';
 import { UnavailableConfigError } from './unavailable-config.error';
 
-const YAML_CONFIG_NAME = 'config.yaml';
+const YAML_CONFIG_NAME = 'config/config.yaml';
 
 export async function configuration() {
     let yamlContent;
     try {
-        yamlContent = readFileSync(join(__dirname, YAML_CONFIG_NAME), 'utf-8');
+        yamlContent = readFileSync(resolve(YAML_CONFIG_NAME), 'utf-8');
     } catch (e) {
         throw new UnavailableConfigError(e);
     }
