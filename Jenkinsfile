@@ -20,9 +20,9 @@ pipeline {
                 stage('Install necessary package') {
                     steps {
                         // configure tzdata
-                        /* sh 'ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone'
+                        // sh 'ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone'
 
-                        sh 'apt update' */
+                        sh 'apt update'
                         
                         // install Docker
                         sh 'apt install apt-transport-https ca-certificates curl gnupg lsb-release -y'
