@@ -1,10 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Post, Req } from '@nestjs/common';
+import { Request } from 'express';
 
 @Controller('webhooks/line')
 export class LineController {
     @Post()
-    lineWebhook(@Body() body: Record<string, any>) {
-        console.log(body);
+    lineWebhook(@Req() req: Request) {
+        console.log(req.body);
         // stuff here
     }
 }
