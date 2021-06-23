@@ -112,7 +112,7 @@ pipeline {
                         }
                     }
                     environment {
-                        RELEASE_TAG_NAME = "${IMAGE_NAME}:${getTagName(env.BRANCH_NAME)})"
+                        RELEASE_TAG_NAME = "${IMAGE_NAME}:${getTagName(env.BRANCH_NAME)}"
                     }
                     steps {
                         sh 'docker tag $TAG_NAME $RELEASE_TAG_NAME'
