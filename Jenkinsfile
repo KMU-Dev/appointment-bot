@@ -22,11 +22,11 @@ pipeline {
                     steps {
                         sh 'apt update'
                         
-                        // install Docker
-                        sh 'apt install apt-transport-https ca-certificates curl gnupg lsb-release -y'
-                        sh 'curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg'
-                        sh 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null'
-                        sh 'apt update && apt install docker-ce docker-ce-cli containerd.io -y'
+                        // install img
+                        sh 'apt install uidmap libseccomp-dev'
+                        sh 'export IMG_SHA256="cc9bf08794353ef57b400d32cd1065765253166b0a09fba360d927cfbd158088"'
+                        sh 'curl -fSL "https://github.com/genuinetools/img/releases/download/v0.5.11/img-linux-amd64" -o "/usr/local/bin/img" && echo "${IMG_SHA256}  /usr/local/bin/img" | sha256sum -c - && chmod a+x "/usr/local/bin/img"'
+                        sh 'img -h'
                     }
                 }
                 stage('Configure Docker') {
@@ -35,7 +35,7 @@ pipeline {
                         REGISTRY_PASSWORD = credentials('github-jenkins-pat') // GitHub personal access token
                     }
                     steps {
-                        sh 'echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USERNAME --password-stdin'
+                        sh 'echo $REGISTRY_PASSWORD | img login ghcr.io -u $REGISTRY_USERNAME --password-stdin'
                     }
                 }
                 stage('Install required package') {
@@ -58,8 +58,8 @@ pipeline {
             stages {
                 stage('Build staging image') {
                     steps {
-                        sh "docker build . -t ${TAG_NAME}"
-                        sh "docker push ${TAG_NAME}"
+                        sh "img build . -t ${TAG_NAME}"
+                        sh "img push ${TAG_NAME}"
                     }
                 }
             }
@@ -115,8 +115,8 @@ pipeline {
                         RELEASE_TAG_NAME = "${IMAGE_NAME}:${getTagName(env.BRANCH_NAME)})"
                     }
                     steps {
-                        sh 'docker tag $TAG_NAME $RELEASE_TAG_NAME'
-                        sh 'docker push $RELEASE_TAG_NAME'
+                        sh 'img tag $TAG_NAME $RELEASE_TAG_NAME'
+                        sh 'img push $RELEASE_TAG_NAME'
                     }
                 }
             }

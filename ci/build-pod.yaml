@@ -8,9 +8,9 @@ spec:
       image: node:14.17.1
       command: ["tail", "-f", "/dev/null"]  # this or any command that is bascially a noop is required, this is so that you don't overwrite the entrypoint of the base container
       imagePullPolicy: IfNotPresent # use cache or pull image for agent
-      volumeMounts:
-        - name: docker
-          mountPath: /var/run/docker.sock
+      # volumeMounts:
+      #   - name: docker
+      #     mountPath: /var/run/docker.sock
   volumes:
     - name: docker
       hostPath:
