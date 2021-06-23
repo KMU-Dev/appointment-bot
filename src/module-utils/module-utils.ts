@@ -3,6 +3,10 @@ import { DynamicProvider } from './dynamic-provider';
 import { ModuleOptionsProvider } from './types';
 
 export class ModuleUtils {
+    private constructor() {
+        // dump
+    }
+
     static resolveDynamicProvider<T>(
         provide: ClassProvider['provide'],
         optionsProvider: ModuleOptionsProvider<T>,
