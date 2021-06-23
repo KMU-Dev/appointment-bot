@@ -5,20 +5,21 @@ pipeline {
     agent {
         kubernetes {
             yamlFile 'ci/build-pod.yaml'
-            defaultContainer 'python'
+            defaultContainer 'node'
         }
     }
     environment {
-        // TAGS
-        APP_TAG = 'registry.webzyno.com/appointment-bot/app'
-        TAG_NAME = getTagName(env.BRANCH_NAME)
+        TZ = 'Asia/Taipei'
+        GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
+
+        TAG_NAME = "ghcr.io/kmu-dev/appointment-bot:dirty-${GIT_COMMIT}"
     }
     stages {
         stage('Pre-Build') {
             stages {
                 stage('Install necessary package') {
                     environment {
-                        TZ = 'Asia/Taipei'
+                        
                     }
                     steps {
                         // configure tzdata
@@ -33,23 +34,23 @@ pipeline {
                         sh 'apt update && apt install docker-ce docker-ce-cli containerd.io -y'
 
                         // install skaffold
-                        sh 'curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && install skaffold /usr/local/bin/'
+                        // sh 'curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && install skaffold /usr/local/bin/'
 
                         // install yarn
-                        sh 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -'
+                        /* sh 'curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -'
                         sh 'echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list'
-                        sh 'apt update && apt install yarn -y'
+                        sh 'apt update && apt install yarn -y' */
                     }
                 }
                 stage('Configure Docker') {
                     environment {
                         REGISTRY_USERNAME = credentials('appointment-bot-registry-username')
                         REGISTRY_PASSWORD = credentials('appointment-bot-registry-password')
-                        JENKINS_DELEGATION_KEY = credentials('appointment-bot-jenkins-notary-delegation-private-key')
+                        // JENKINS_DELEGATION_KEY = credentials('appointment-bot-jenkins-notary-delegation-private-key')
                     }
                     steps {
                         sh "docker login -u '${env.REGISTRY_USERNAME}' -p '${env.REGISTRY_PASSWORD}' registry.webzyno.com"
-                        sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
+                        // sh 'docker trust key load --name jenkins $JENKINS_DELEGATION_KEY'
                     }
                 }
                 stage('Install required package') {
@@ -62,11 +63,12 @@ pipeline {
         stage('Build') {
             stages {
                 stage('Build staging image') {
-                    environment {
+                    /* environment {
                         GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
-                    }
+                    } */
                     steps {
-                        sh 'skaffold build -p ci --file-output=tags.json'
+                        sh "docker build . -t ${TAG_NAME}"
+                        sh "docker push ${TAG_NAME}"
                     }
                 }
             }

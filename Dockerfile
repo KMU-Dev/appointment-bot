@@ -1,10 +1,10 @@
 # Build Container
-FROM node:14.15.4-alpine AS builder
+FROM node:14.17.1-alpine AS builder
 
 WORKDIR /app
 
 # Copy dependency specification file
-COPY package.json yarn.lock tsconfig.json /app/
+COPY package.json yarn.lock tsconfig.json tsconfig.build.json nest-cli.json /app/
 
 # Install dependincies
 RUN yarn --version && yarn
@@ -17,9 +17,11 @@ RUN yarn build
 
 
 # Production Container
-FROM node:14.15.4-alpine
+FROM node:14.17.1-alpine
 
 LABEL maintainer="Chao Tzu-Hsien"
+
+LABEL org.opencontainers.image.source https://github.com/KMU-Dev/appointment-bot
 
 WORKDIR /app
 
@@ -39,10 +41,10 @@ COPY --chown=bot package.json yarn.lock /app/
 RUN yarn --version && yarn --prod
 
 # Copy built Javascript from build container
-COPY --from=builder --chown=bot /app/dist /app
+COPY --from=builder --chown=bot /app/dist /app/dist
 
 # Expose app running port
-EXPOSE 5000
+EXPOSE 3000
 
 # Start app
-ENTRYPOINT ["yarn", "start"]
+ENTRYPOINT ["yarn", "start:prod"]
