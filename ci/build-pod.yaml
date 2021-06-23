@@ -2,15 +2,17 @@ apiVersion: v1
 kind: Pod
 metadata:
   namespace: jenkins
-  annotations:
-    container.apparmor.security.beta.kubernetes.io/img: unconfined
-    container.seccomp.security.alpha.kubernetes.io/img: unconfined
+  # annotations:
+  #   container.apparmor.security.beta.kubernetes.io/img: unconfined
+  #   container.seccomp.security.alpha.kubernetes.io/img: unconfined
 spec:
   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
     - name: node
       image: node:14.17.1
       command: ["tail", "-f", "/dev/null"]  # this or any command that is bascially a noop is required, this is so that you don't overwrite the entrypoint of the base container
       imagePullPolicy: IfNotPresent # use cache or pull image for agent
+      securityContext:
+        privileged: true
       # volumeMounts:
       #   - name: docker
       #     mountPath: /var/run/docker.sock
