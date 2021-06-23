@@ -23,7 +23,7 @@ pipeline {
                         sh 'apt update'
                         
                         // install img
-                        sh 'apt install uidmap libseccomp-dev'
+                        sh 'apt install uidmap libseccomp-dev -y'
                         sh 'export IMG_SHA256="cc9bf08794353ef57b400d32cd1065765253166b0a09fba360d927cfbd158088"'
                         sh 'curl -fSL "https://github.com/genuinetools/img/releases/download/v0.5.11/img-linux-amd64" -o "/usr/local/bin/img" && echo "${IMG_SHA256}  /usr/local/bin/img" | sha256sum -c - && chmod a+x "/usr/local/bin/img"'
                         sh 'img -h'
