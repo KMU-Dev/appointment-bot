@@ -29,6 +29,7 @@ export class LineModule implements NestModule {
 
         return {
             module: LineModule,
+            imports: options.imports,
             controllers,
             providers: [
                 ModuleUtils.resolveDynamicProvider(
