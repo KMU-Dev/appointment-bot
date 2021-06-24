@@ -30,7 +30,7 @@ pipeline {
                     }
                 }
                 stage('Analysis & Test') {
-                    stages {
+                    container('node') {
                         stage('Configure') {
                             stages {
                                 stage('Install required package') {
