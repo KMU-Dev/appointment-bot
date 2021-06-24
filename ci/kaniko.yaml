@@ -14,5 +14,10 @@ spec:
           mountPath: /kaniko/.docker
   volumes:
     - name: docker-config
-      secret:
-        name: github-docker-config
+      projected:
+        sources:
+          - secret:
+              name: github-docker-config
+              items:
+                - key: .dockerconfigjson
+                  path: config.json
