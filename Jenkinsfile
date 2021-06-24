@@ -94,6 +94,12 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                anyOf {
+                    branch 'master';
+                    branch 'development';
+                }
+            }
             agent {
                 node {
                     label 'docker'
@@ -101,12 +107,6 @@ pipeline {
             }
             stages {
                 stage('Build and deploy release image') {
-                    when {
-                        anyOf {
-                            branch 'master';
-                            branch 'development';
-                        }
-                    }
                     environment {
                         RELEASE_TAG_NAME = "${IMAGE_NAME}:${getTagName(env.BRANCH_NAME)}"
                     }
