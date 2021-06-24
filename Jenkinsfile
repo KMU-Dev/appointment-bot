@@ -3,7 +3,7 @@ pipeline {
         disableConcurrentBuilds()
         parallelsAlwaysFailFast()
     }
-    agent none
+    agent any
     environment {
         TZ = 'Asia/Taipei'
         GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
