@@ -13,6 +13,9 @@ spec:
       volumeMounts:
         - name: docker-config
           mountPath: /kaniko/.docker
+    - name: jnlp
+      args:
+        - -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400
   volumes:
     - name: docker-config
       projected:
