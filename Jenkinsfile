@@ -58,7 +58,6 @@ pipeline {
             agent {
                 kubernetes {
                     yamlFile 'ci/kaniko.yaml'
-                    name 'appointment-bot-kaniko'
                     defaultContainer 'builder'
                 }
             }

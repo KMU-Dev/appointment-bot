@@ -1,4 +1,7 @@
 kind: Pod
+metadata:
+  name: appointment-bot-kaniko
+  namespace: jenkins
 spec:
   containers:
     - name:  builder
