@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { raw } from 'express';
 import { AppModule } from './app.module';
@@ -5,9 +6,16 @@ import { AppModule } from './app.module';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
-    // disable body parser in webhook route
-    app.use('/webhooks/line', raw({ type: 'application/json' }));
+    // get config service
+    const configService = app.get(ConfigService);
 
-    await app.listen(3000);
+    // disable body parser in webhook route
+    const lineEnabled = configService.get<boolean>('channels.line.enabled');
+    if (lineEnabled) {
+        const lineWebhook = configService.get<string>('channels.line.path');
+        app.use(lineWebhook, raw({ type: 'application/json' }));
+    }
+
+    await app.listen(configService.get('port'));
 }
 bootstrap();

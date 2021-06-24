@@ -8,6 +8,7 @@ import { InvalidConfigError } from './invalid-config.error';
 import { UnavailableConfigError } from './unavailable-config.error';
 
 const validConfig = plainToClass(AppointmentBotConfig, {
+    port: 3000,
     channels: {
         line: {
             enabled: true,
@@ -30,6 +31,7 @@ describe('configuration', () => {
 
     it('should return an configuration object when addition property is set', async () => {
         const wrongConfig = plainToClass(AppointmentBotConfig, {
+            port: 3000,
             channels: {
                 line: {
                     enabled: true,

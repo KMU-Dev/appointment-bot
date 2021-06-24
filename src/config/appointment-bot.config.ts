@@ -3,7 +3,10 @@ import {
     IsBoolean,
     IsDefined,
     IsInstance,
+    IsInt,
     IsNotEmpty,
+    IsOptional,
+    IsPositive,
     IsString,
     ValidateNested,
 } from 'class-validator';
@@ -33,9 +36,25 @@ export class ChannelsConfig {
     line: LineConfig;
 }
 
+export class LocaltunnelConfig {
+    @IsString()
+    @IsOptional()
+    subdomain: string;
+}
+
 export class AppointmentBotConfig {
+    @IsInt()
+    @IsPositive()
+    port: number;
+
     @ValidateNested()
     @IsInstance(ChannelsConfig)
     @Type(() => ChannelsConfig)
     channels: ChannelsConfig;
+
+    @ValidateNested()
+    @IsInstance(LocaltunnelConfig)
+    @Type(() => LocaltunnelConfig)
+    @IsOptional()
+    localtunnel: LocaltunnelConfig;
 }

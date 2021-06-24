@@ -27,7 +27,18 @@ import { LocaltunnelModule } from './localtunnel/localtunnel.module';
                 ConfigService,
             ),
         }),
-        LocaltunnelModule.forRoot({ port: 3000, subdomain: 'appointment-bot' }),
+        LocaltunnelModule.forRoot({
+            port: new DynamicProvider(
+                (configService: ConfigService) =>
+                    configService.get<number>('port'),
+                ConfigService,
+            ),
+            subdomain: new DynamicProvider(
+                (configService: ConfigService) =>
+                    configService.get<string>('localtunnel.subdomain'),
+                ConfigService,
+            ),
+        }),
     ],
     controllers: [AppController],
     providers: [AppService],
