@@ -7,8 +7,9 @@ spec:
     - name:  builder
       image:  gcr.io/kaniko-project/executor:latest
       command:
-        - /busybox/cat
-      tty: true
+        - sleep
+      args:
+        - 99d
       volumeMounts:
         - name: docker-config
           mountPath: /kaniko/.docker
