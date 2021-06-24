@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Pre-Build') {
             stages {
-                stage('Install necessary package') {
+                /* stage('Install necessary package') {
                     steps {
                         sh 'apt update'
                         
@@ -37,7 +37,7 @@ pipeline {
                     steps {
                         sh 'echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USERNAME --password-stdin'
                     }
-                }
+                } */
                 stage('Install required package') {
                     steps {
                         sh 'yarn --version && yarn'
@@ -55,11 +55,17 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                kubernetes {
+                    yamlFile 'ci/kaniko.yaml'
+                    label 'appointment-bot-kaniko'
+                    defaultContainer 'builder'
+                }
+            }
             stages {
                 stage('Build staging image') {
                     steps {
-                        sh "docker build . -t ${TAG_NAME}"
-                        sh "docker push ${TAG_NAME}"
+                        sh "/kaniko/executor --dockerfile `pwd`/Dockerfile --context `pwd` --destination=${env.TAG_NAME}"
                     }
                 }
             }

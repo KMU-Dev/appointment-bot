@@ -1,0 +1,15 @@
+kind: Pod
+spec:
+  containers:
+    - name:  builder
+      image:  gcr.io/kaniko-project/executor:latest
+      command:
+        - /busybox/cat
+      tty: true
+      volumeMounts:
+        - name: docker-config
+          mountPath: /kaniko/.docker
+  volumes:
+    - name: docker-config
+      configMap:
+        name: github-docker-config
