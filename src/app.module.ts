@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { configuration } from './config/configuration';
 import { LineModule } from './line/line.module';
 import { DynamicProvider } from './module-utils/dynamic-provider';
+import { LocaltunnelModule } from './localtunnel/localtunnel.module';
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { DynamicProvider } from './module-utils/dynamic-provider';
                 ConfigService,
             ),
         }),
+        LocaltunnelModule.forRoot({ port: 3000, subdomain: 'appointment-bot' }),
     ],
     controllers: [AppController],
     providers: [AppService],
