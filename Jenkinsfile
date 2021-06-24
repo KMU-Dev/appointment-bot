@@ -3,11 +3,7 @@ pipeline {
         disableConcurrentBuilds()
         parallelsAlwaysFailFast()
     }
-    agent {
-        kubernetes {
-            yamlFile 'ci/build-pod.yaml'
-        }
-    }
+    agent any
     environment {
         TZ = 'Asia/Taipei'
         GIT_COMMIT = sh(script: "git log -1 --pretty=%h | tr -d [:space:]", returnStdout: true).trim()
@@ -30,7 +26,13 @@ pipeline {
                     }
                 }
                 stage('Analysis & Test') {
-                    container('node') {
+                    agent {
+                        kubernetes {
+                            yamlFile 'ci/build-pod.yaml'
+                            defaultContiner 'node'
+                        }
+                    }
+                    stages {
                         stage('Configure') {
                             stages {
                                 stage('Install required package') {
