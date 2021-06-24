@@ -29,7 +29,7 @@ pipeline {
                     agent {
                         kubernetes {
                             yamlFile 'ci/build-pod.yaml'
-                            defaultContiner 'node'
+                            defaultContainer 'node'
                         }
                     }
                     stages {
