@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ModuleUtils } from '../module-utils/module-utils';
 import { LocaltunnelModuleOptions } from './localtunnel-module-options.interface';
-import { LocaltunnelService } from './localtunnel';
+import { LocaltunnelService } from './localtunnel.service';
 
 @Module({
     providers: [LocaltunnelService],

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { LocaltunnelService } from './localtunnel';
+import { LocaltunnelService } from './localtunnel.service';
 
 describe('NgrokService', () => {
     let service: LocaltunnelService;
