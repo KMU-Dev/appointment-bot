@@ -30,12 +30,6 @@ pipeline {
                     }
                 }
                 stage('Analysis & Test') {
-                    agent {
-                        kubernetes {
-                            yamlFile 'ci/build-pod.yaml'
-                            defaultContainer 'node'
-                        }
-                    }
                     stages {
                         stage('Configure') {
                             stages {
