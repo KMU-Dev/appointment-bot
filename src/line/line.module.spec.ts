@@ -25,10 +25,36 @@ describe('LineModule', () => {
         expect(lineModule).toBeInstanceOf(LineModule);
     });
 
-    it('LineController should be defined', () => {
+    it('LineController should be defined if useController option is not provide', () => {
         const controller = testModule.get<LineController>(LineController);
 
         expect(controller).toBeInstanceOf(LineController);
+    });
+
+    it('LineController should be defined if useController option is set to true', async () => {
+        testModule = await Test.createTestingModule({
+            imports: [
+                LineModule.forRoot({
+                    useController: true,
+                    ...moduleOptions,
+                }),
+            ],
+        }).compile();
+        const controller = testModule.get<LineController>(LineController);
+
+        expect(controller).toBeInstanceOf(LineController);
+    });
+
+    it('LineController should not be defined if useController option is set to false', async () => {
+        testModule = await Test.createTestingModule({
+            imports: [
+                LineModule.forRoot({
+                    useController: false,
+                    ...moduleOptions,
+                }),
+            ],
+        }).compile();
+        expect(() => testModule.get<LineController>(LineController)).toThrow();
     });
 
     it('LINE_CHANNEL_ACCESS_TOKEN should be the same', () => {
