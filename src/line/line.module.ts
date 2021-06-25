@@ -64,7 +64,7 @@ export class LineModule implements NestModule {
         channelSecretKey: string,
     ): Provider {
         return {
-            provide: 'LINE_MIDDLEWARE',
+            provide: 'LINE_CLIENT',
             useFactory: (channelAccessToken: string, channelSecret: string) =>
                 new Client({
                     channelAccessToken,
