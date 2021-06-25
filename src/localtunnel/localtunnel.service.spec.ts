@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LocaltunnelService } from './localtunnel.service';
 
-describe('NgrokService', () => {
+describe('LocaltunnelService', () => {
     let service: LocaltunnelService;
 
     beforeEach(async () => {
