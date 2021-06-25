@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { configuration } from './config/configuration';
 import { LineModule } from './line/line.module';
 import { DynamicProvider } from './module-utils/dynamic-provider';
+import { LocaltunnelModule } from './localtunnel/localtunnel.module';
 
 @Module({
     imports: [
@@ -23,6 +24,18 @@ import { DynamicProvider } from './module-utils/dynamic-provider';
             channelSecret: new DynamicProvider(
                 (configService: ConfigService) =>
                     configService.get<string>('channels.line.channelSecret'),
+                ConfigService,
+            ),
+        }),
+        LocaltunnelModule.forRoot({
+            port: new DynamicProvider(
+                (configService: ConfigService) =>
+                    configService.get<number>('port'),
+                ConfigService,
+            ),
+            subdomain: new DynamicProvider(
+                (configService: ConfigService) =>
+                    configService.get<string>('localtunnel.subdomain'),
                 ConfigService,
             ),
         }),
