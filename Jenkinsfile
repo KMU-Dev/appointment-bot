@@ -86,6 +86,16 @@ pipeline {
                             post {
                                 always {
                                     junit '*junit.xml'
+
+                                    // publish coverage report
+                                    publishHTML target: [
+                                        reportName: 'Code Coverage',
+                                        reportDir: 'coverage/lcov-report',
+                                        reportFiles: 'index.html',
+                                        keepAll: true,
+                                        alwaysLinkToLastBuild: true,
+                                        allowMissing: false
+                                    ]
                                 }
                             }
                         }
