@@ -84,5 +84,8 @@
       "default",
       "jest-junit"
     ]
+  },
+  "jest-junit": {
+    "includeConsoleOutput": true
   }
 }
