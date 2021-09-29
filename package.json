@@ -23,7 +23,7 @@
     "test:e2e:ci": "jest --config ./test/jest-e2e.json --ci --reporters=\"default\" --reporters=\"jest-junit\""
   },
   "dependencies": {
-    "@line/bot-sdk": "^7.3.0",
+    "@line/bot-sdk": "^7.4.0",
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
